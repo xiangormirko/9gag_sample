@@ -101,6 +101,7 @@ class GAG : NSObject {
         cache.totalCostLimit = 500*1024*1024 // Max 500MB used.
         return cache
     }()
+    
 
     
 }

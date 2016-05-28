@@ -91,8 +91,6 @@ class HomeViewController: UIViewController {
                 if let memes = JSONResult.valueForKey("data") as? [[String : AnyObject]] {
                     for meme in memes{
                         let testMeme = Meme(data: meme)
-                        print(testMeme)
-                        print(testMeme.caption)
                         self.hotMemes.append(testMeme)
                     }
                     hotVC.resources = self.hotMemes
@@ -105,6 +103,12 @@ class HomeViewController: UIViewController {
                     let error = NSError(domain: "JSON parsing error:\(JSONResult)", code: 0, userInfo: nil)
                     print(error)
                 }
+                
+                if let paging = JSONResult.valueForKey("paging") as? [String : AnyObject] {
+                    let hotPaging = paging["next"] as! String
+                    hotVC.nextPaging = hotPaging
+                }
+                
             }
         }
     }
