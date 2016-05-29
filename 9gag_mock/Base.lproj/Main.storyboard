@@ -241,10 +241,10 @@
             </objects>
             <point key="canvasLocation" x="750" y="360"/>
         </scene>
-        <!--Hot View Controller-->
+        <!--Meme View Controller-->
         <scene sceneID="9Kr-3x-neC">
             <objects>
-                <viewController storyboardIdentifier="hot" id="eYz-Vn-UOT" customClass="HotViewController" customModule="_gag_mock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="memeController" id="eYz-Vn-UOT" customClass="MemeViewController" customModule="_gag_mock" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zMr-fE-1V9"/>
                         <viewControllerLayoutGuide type="bottom" id="rPH-kt-Tw2"/>

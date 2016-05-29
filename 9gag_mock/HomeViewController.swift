@@ -11,8 +11,10 @@ import UIKit
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
-    let sample_data = [1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+
     var hotMemes = [Meme]()
+    var trendingMemes = [Meme]()
+    var freshMemes = [Meme]()
     
     @IBOutlet weak var freshButton: UIButton!
     @IBOutlet weak var trendingButton: UIButton!
@@ -25,16 +27,16 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let hotVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("hot") as! HotViewController
-        
+        let hotVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("memeController") as! MemeViewController
+        hotVC.contentType = "hot"
         hotVC.resources = hotMemes
         
         self.addChildViewController(hotVC)
         self.scrollView.addSubview(hotVC.view)
         hotVC.didMoveToParentViewController(self)
         
-        let trendingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("trending") as! TrendingViewController
-        
+        let trendingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("memeController") as! MemeViewController
+        trendingVC.contentType = "trending"
         var frame1 = trendingVC.view.frame
         frame1.origin.x = self.view.frame.size.width
         trendingVC.view.frame = frame1
@@ -43,8 +45,8 @@ class HomeViewController: UIViewController {
         self.scrollView.addSubview(trendingVC.view)
         trendingVC.didMoveToParentViewController(self)
         
-        let freshVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("fresh") as! FreshViewController
-        
+        let freshVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("memeController") as! MemeViewController
+        freshVC.contentType = "fresh"
         var frame2 = trendingVC.view.frame
         frame2.origin.x = self.view.frame.size.width * 2
         freshVC.view.frame = frame2
@@ -55,7 +57,7 @@ class HomeViewController: UIViewController {
         
         self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width * 3, self.view.frame.size.height)
         
-        populateInitialData(hotVC)
+        populateInitialData(hotVC, trendingVC: trendingVC, freshVC: freshVC)
 
         
         
@@ -66,9 +68,7 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (sample_data).count
-    }
+
     
     @IBAction func didTapButton(sender: UIButton) {
         updateConstraintsForActiveLineView(activeLine, underButton:sender)
@@ -82,7 +82,7 @@ class HomeViewController: UIViewController {
     }
     
     
-    func populateInitialData(hotVC: HotViewController) {
+    func populateInitialData(hotVC: MemeViewController, trendingVC: MemeViewController, freshVC: MemeViewController) {
         GAG.sharedInstance().taskForResource("hot", last: "") { JSONResult, error in
             if let error = error {
                 print(error)
@@ -111,6 +111,67 @@ class HomeViewController: UIViewController {
                 
             }
         }
+        
+        GAG.sharedInstance().taskForResource("trending", last: "") { JSONResult, error in
+            if let error = error {
+                print(error)
+            } else {
+                //                print(JSONResult)
+                if let memes = JSONResult.valueForKey("data") as? [[String : AnyObject]] {
+                    for meme in memes{
+                        let testMeme = Meme(data: meme)
+                        self.trendingMemes.append(testMeme)
+                    }
+                    trendingVC.resources = self.trendingMemes
+                    dispatch_async(dispatch_get_main_queue()) {
+                        trendingVC.tableView.reloadData()
+                    }
+                    
+                    
+                } else {
+                    let error = NSError(domain: "JSON parsing error:\(JSONResult)", code: 0, userInfo: nil)
+                    print(error)
+                }
+                
+                if let paging = JSONResult.valueForKey("paging") as? [String : AnyObject] {
+                    let trendingPaging = paging["next"] as! String
+                    hotVC.nextPaging = trendingPaging
+                }
+                
+            }
+        }
+        
+        GAG.sharedInstance().taskForResource("fresh", last: "") { JSONResult, error in
+            if let error = error {
+                print(error)
+            } else {
+                //                print(JSONResult)
+                if let memes = JSONResult.valueForKey("data") as? [[String : AnyObject]] {
+                    for meme in memes{
+                        let testMeme = Meme(data: meme)
+                        self.freshMemes.append(testMeme)
+                    }
+                    freshVC.resources = self.freshMemes
+                    dispatch_async(dispatch_get_main_queue()) {
+                        freshVC.tableView.reloadData()
+                    }
+                    
+                    
+                } else {
+                    let error = NSError(domain: "JSON parsing error:\(JSONResult)", code: 0, userInfo: nil)
+                    print(error)
+                }
+                
+                if let paging = JSONResult.valueForKey("paging") as? [String : AnyObject] {
+                    let freshPaging = paging["next"] as! String
+                    freshVC.nextPaging = freshPaging
+                }
+                
+            }
+        }
+        
+        
+        
     }
     
     

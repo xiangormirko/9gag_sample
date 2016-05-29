@@ -1,5 +1,5 @@
 //
-//  HotViewController.swift
+//  MemeViewController.swift
 //  9gag_mock
 //
 //  Created by MIRKO on 5/25/16.
@@ -11,12 +11,13 @@ import UIKit
 
 
 
-class HotViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MemeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var resources = [Meme]()
     let threshold = 200.0 // threshold from bottom of tableView
     var isLoadingMore = false // flag
     var nextPaging : String = ""
+    var contentType : String = ""
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -79,7 +80,7 @@ class HotViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         if (indexPath.row == resources.count - 5) && !isLoadingMore {
             isLoadingMore = true
             print("need moooaaar")
-            GAG.sharedInstance().taskForResource("hot", last: nextPaging) { JSONResult, error in
+            GAG.sharedInstance().taskForResource(contentType, last: nextPaging) { JSONResult, error in
                 if let error = error {
                     print(error)
                 } else {
