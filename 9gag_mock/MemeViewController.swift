@@ -50,12 +50,9 @@ class MemeViewController: UIViewController, UITableViewDelegate, UITableViewData
 //            print("got cached goodies for you")
             cell.memeImage.image = image
         } else {
-            print("fetching image for you")
             imageURL?.fetchImage { image in
                 if cell.imageUrl == imageURL {
-                    print("image ready")
                     dispatch_async(dispatch_get_main_queue()) {
-                        print("setting image in main")
                         cell.memeImage.image = image
                         tableView.reloadData()
                     }
@@ -79,7 +76,6 @@ class MemeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if (indexPath.row == resources.count - 5) && !isLoadingMore {
             isLoadingMore = true
-            print("need moooaaar")
             GAG.sharedInstance().taskForResource(contentType, last: nextPaging) { JSONResult, error in
                 if let error = error {
                     print(error)
@@ -96,7 +92,6 @@ class MemeViewController: UIViewController, UITableViewDelegate, UITableViewData
                       
                         // Update UI
                         dispatch_async(dispatch_get_main_queue()) {
-                            print("reloading")
                             self.isLoadingMore = false
                             self.tableView.reloadData()
                         }
