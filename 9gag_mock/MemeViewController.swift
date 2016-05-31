@@ -14,7 +14,6 @@ import UIKit
 class MemeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var resources = [Meme]()
-    let threshold = 200.0 // threshold from bottom of tableView
     var isLoadingMore = false // flag
     var nextPaging : String = ""
     var contentType : String = ""
@@ -79,14 +78,10 @@ class MemeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if let error = error {
                     print(error)
                 } else {
-                    var updateIndex: [NSIndexPath] = []
                     if let memes = JSONResult.valueForKey("data") as? [[String : AnyObject]] {
                         for meme in memes{
                             let testMeme = Meme(data: meme)
                             self.resources.append(testMeme)
-                            let index = NSIndexPath(forRow: self.resources.count - 1 , inSection: 0)
-                            updateIndex.append(index)
-
                         }
                       
                         // Update UI

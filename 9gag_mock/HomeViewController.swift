@@ -17,6 +17,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var trendingMemes = [Meme]()
     var freshMemes = [Meme]()
     var frame = CGFloat()
+    var isLoadingMore = false // flag
+    var collectionPaging = ""
 
     
     @IBOutlet weak var freshButton: UIButton!
@@ -262,6 +264,44 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             updateConstraintsForActiveLineView(activeLine, underButton: freshButton)
         default:
             print("default")
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        //Retrieve additional data for UICollectionView for infinite scrolling
+        
+        if (indexPath.row == hotMemes.count - 5) && !isLoadingMore {
+            isLoadingMore = true
+            GAG.sharedInstance().taskForResource(GAG.Constants.HOT, last: collectionPaging) { JSONResult, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    if let memes = JSONResult.valueForKey("data") as? [[String : AnyObject]] {
+                        for meme in memes{
+                            let testMeme = Meme(data: meme)
+                            self.hotMemes.append(testMeme)
+                            
+                        }
+                        
+                        // Update UI
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.isLoadingMore = false
+                            self.collectionView.reloadData()
+                        }
+                        
+                    } else {
+                        let error = NSError(domain: "JSON parsing error:\(JSONResult)", code: 0, userInfo: nil)
+                        print(error)
+                    }
+                    
+                    if let paging = JSONResult.valueForKey("paging") as? [String : AnyObject] {
+                        let hotPaging = paging["next"] as! String
+                        self.collectionPaging = hotPaging
+                    }
+                }
+            }
+            
+            
         }
     }
 
