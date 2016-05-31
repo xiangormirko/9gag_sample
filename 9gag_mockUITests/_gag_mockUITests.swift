@@ -33,4 +33,23 @@ class _gag_mockUITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
+    func testTabs() {
+        // test that tab buttons are correctly instantiated and thus exists
+        let app = XCUIApplication()
+        XCTAssert(app.buttons["TRENDING"].exists)
+        XCTAssert(app.buttons["FRESH"].exists)
+        XCTAssert(app.buttons["HOT"].exists)
+    }
+    
+    func testViews() {
+        // test that collectionview, scroll view, and tableview exist
+        let app = XCUIApplication()
+        
+        XCTAssert(app.collectionViews.element.exists)
+        XCTAssert(app.scrollViews.element.exists)
+        XCTAssert(app.scrollViews.otherElements.tables.element.exists)
+
+    }
+    
+    
 }

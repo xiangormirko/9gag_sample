@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class MemeCollectionViewCell: UICollectionViewCell {
+    // Custom collectionview cell
+    
     @IBOutlet weak var memeImage: UIImageView!
     @IBOutlet weak var memeCaption: UILabel!
     var imageUrl: NSURL!

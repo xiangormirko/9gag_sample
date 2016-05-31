@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD33EABB1CFCAC520084573D /* HomeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD33EABA1CFCAC520084573D /* HomeViewControllerTests.swift */; };
+		CD57756E1CFD64FD001DF2AB /* MemeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD57756D1CFD64FD001DF2AB /* MemeViewControllerTests.swift */; };
 		CD736D411CFC2A4300E63AF5 /* MemeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD736D401CFC2A4300E63AF5 /* MemeCollectionViewCell.swift */; };
 		CDA5DC3B1CF7FC2600EF85B4 /* MemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA5DC3A1CF7FC2600EF85B4 /* MemeModel.swift */; };
 		CDA5DC3E1CF7FE0B00EF85B4 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA5DC3D1CF7FE0B00EF85B4 /* CommentModel.swift */; };
 		CDA5DC401CF862D400EF85B4 /* MemeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA5DC3F1CF862D400EF85B4 /* MemeTableCell.swift */; };
 		CDA5DC421CF86FDA00EF85B4 /* 9GAG.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA5DC411CF86FDA00EF85B4 /* 9GAG.swift */; };
 		CDA5DC461CF8763400EF85B4 /* 9GAG-Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA5DC451CF8763400EF85B4 /* 9GAG-Constants.swift */; };
-		CDA5DC481CF8A98500EF85B4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA5DC471CF8A98500EF85B4 /* Default-568h@2x.png */; };
 		CDE1F5FA1CF2E6B9007190A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1F5F91CF2E6B9007190A1 /* AppDelegate.swift */; };
 		CDE1F5FC1CF2E6B9007190A1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1F5FB1CF2E6B9007190A1 /* HomeViewController.swift */; };
 		CDE1F5FE1CF2E6B9007190A1 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1F5FD1CF2E6B9007190A1 /* SecondViewController.swift */; };
@@ -23,7 +24,6 @@
 		CDE1F6111CF2E6B9007190A1 /* _gag_mockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1F6101CF2E6B9007190A1 /* _gag_mockTests.swift */; };
 		CDE1F61C1CF2E6B9007190A1 /* _gag_mockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE1F61B1CF2E6B9007190A1 /* _gag_mockUITests.swift */; };
 		CDEE43661CF5627200B135E1 /* MemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEE43651CF5627200B135E1 /* MemeViewController.swift */; };
-		CDEE43681CF56F1F00B135E1 /* tabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEE43671CF56F1F00B135E1 /* tabsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,13 +44,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CD33EABA1CFCAC520084573D /* HomeViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewControllerTests.swift; sourceTree = "<group>"; };
+		CD57756D1CFD64FD001DF2AB /* MemeViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeViewControllerTests.swift; sourceTree = "<group>"; };
 		CD736D401CFC2A4300E63AF5 /* MemeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeCollectionViewCell.swift; sourceTree = "<group>"; };
 		CDA5DC3A1CF7FC2600EF85B4 /* MemeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeModel.swift; sourceTree = "<group>"; };
 		CDA5DC3D1CF7FE0B00EF85B4 /* CommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		CDA5DC3F1CF862D400EF85B4 /* MemeTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTableCell.swift; sourceTree = "<group>"; };
 		CDA5DC411CF86FDA00EF85B4 /* 9GAG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = 9GAG.swift; sourceTree = "<group>"; };
 		CDA5DC451CF8763400EF85B4 /* 9GAG-Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "9GAG-Constants.swift"; sourceTree = "<group>"; };
-		CDA5DC471CF8A98500EF85B4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		CDE1F5F61CF2E6B9007190A1 /* 9gag_mock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 9gag_mock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE1F5F91CF2E6B9007190A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDE1F5FB1CF2E6B9007190A1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +67,6 @@
 		CDE1F61B1CF2E6B9007190A1 /* _gag_mockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _gag_mockUITests.swift; sourceTree = "<group>"; };
 		CDE1F61D1CF2E6B9007190A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDEE43651CF5627200B135E1 /* MemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeViewController.swift; sourceTree = "<group>"; };
-		CDEE43671CF56F1F00B135E1 /* tabsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tabsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +110,6 @@
 		CDE1F5ED1CF2E6B9007190A1 = {
 			isa = PBXGroup;
 			children = (
-				CDA5DC471CF8A98500EF85B4 /* Default-568h@2x.png */,
 				CDE1F5F81CF2E6B9007190A1 /* 9gag_mock */,
 				CDE1F60F1CF2E6B9007190A1 /* 9gag_mockTests */,
 				CDE1F61A1CF2E6B9007190A1 /* 9gag_mockUITests */,
@@ -133,7 +132,6 @@
 			children = (
 				CDE1F5F91CF2E6B9007190A1 /* AppDelegate.swift */,
 				CDE1F5FB1CF2E6B9007190A1 /* HomeViewController.swift */,
-				CDEE43671CF56F1F00B135E1 /* tabsView.swift */,
 				CDEE43651CF5627200B135E1 /* MemeViewController.swift */,
 				CDE1F5FD1CF2E6B9007190A1 /* SecondViewController.swift */,
 				CDE1F5FF1CF2E6B9007190A1 /* Main.storyboard */,
@@ -150,6 +148,8 @@
 			children = (
 				CDE1F6101CF2E6B9007190A1 /* _gag_mockTests.swift */,
 				CDE1F6121CF2E6B9007190A1 /* Info.plist */,
+				CD33EABA1CFCAC520084573D /* HomeViewControllerTests.swift */,
+				CD57756D1CFD64FD001DF2AB /* MemeViewControllerTests.swift */,
 			);
 			path = 9gag_mockTests;
 			sourceTree = "<group>";
@@ -268,7 +268,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDE1F6061CF2E6B9007190A1 /* LaunchScreen.storyboard in Resources */,
-				CDA5DC481CF8A98500EF85B4 /* Default-568h@2x.png in Resources */,
 				CDE1F6031CF2E6B9007190A1 /* Assets.xcassets in Resources */,
 				CDE1F6011CF2E6B9007190A1 /* Main.storyboard in Resources */,
 			);
@@ -297,7 +296,6 @@
 			files = (
 				CDA5DC421CF86FDA00EF85B4 /* 9GAG.swift in Sources */,
 				CDA5DC401CF862D400EF85B4 /* MemeTableCell.swift in Sources */,
-				CDEE43681CF56F1F00B135E1 /* tabsView.swift in Sources */,
 				CDEE43661CF5627200B135E1 /* MemeViewController.swift in Sources */,
 				CD736D411CFC2A4300E63AF5 /* MemeCollectionViewCell.swift in Sources */,
 				CDE1F5FE1CF2E6B9007190A1 /* SecondViewController.swift in Sources */,
@@ -314,6 +312,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDE1F6111CF2E6B9007190A1 /* _gag_mockTests.swift in Sources */,
+				CD57756E1CFD64FD001DF2AB /* MemeViewControllerTests.swift in Sources */,
+				CD33EABB1CFCAC520084573D /* HomeViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +447,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = 9gag_mock/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "XZM.-gag-mock";
@@ -458,6 +459,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = 9gag_mock/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "XZM.-gag-mock";

@@ -11,6 +11,8 @@ import UIKit
 
 class GAG : NSObject {
     
+    // all networking convenience methods
+    
     typealias CompletionHander = (result: AnyObject!, error: NSError?) -> Void
     var session: NSURLSession
     

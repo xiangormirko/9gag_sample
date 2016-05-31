@@ -9,6 +9,8 @@
 import Foundation
 
 class Comment {
+    
+    // potential model for comments, not implemented
     var id: String
     var text: String
     var authorId: String

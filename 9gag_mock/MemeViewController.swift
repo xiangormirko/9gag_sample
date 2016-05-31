@@ -24,9 +24,7 @@ class MemeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        tableView.delegate = self
-        tableView.dataSource = self
+
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,13 +39,13 @@ class MemeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cellIdentifier = "hotCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! MemeTableCell
         
-        // Set the title and image
+        // Set the title and image, retrieve image from cache or make request
         cell.titleLabel.text = res.caption
         
         let imageURL = NSURL(string: res.photoURL)
         cell.imageUrl = imageURL
         if let image = imageURL?.cachedImage {
-//            print("got cached goodies for you")
+
             cell.memeImage.image = image
         } else {
             imageURL?.fetchImage { image in
@@ -74,6 +72,7 @@ class MemeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
   
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        // if content are about to terminate, make call for more data
         if (indexPath.row == resources.count - 5) && !isLoadingMore {
             isLoadingMore = true
             GAG.sharedInstance().taskForResource(contentType, last: nextPaging) { JSONResult, error in

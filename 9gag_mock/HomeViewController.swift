@@ -17,6 +17,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var trendingMemes = [Meme]()
     var freshMemes = [Meme]()
     var frame = CGFloat()
+
     
     @IBOutlet weak var freshButton: UIButton!
     @IBOutlet weak var trendingButton: UIButton!
@@ -33,8 +34,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         // Do any additional setup after loading the view, typically from a nib.
         
+        
+        // Instantiate view controllers and embbed them into the scroll view for paging
         let hotVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("memeController") as! MemeViewController
-        hotVC.contentType = "hot"
+        hotVC.contentType = GAG.Constants.HOT
         hotVC.resources = hotMemes
         
         self.addChildViewController(hotVC)
@@ -42,7 +45,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         hotVC.didMoveToParentViewController(self)
         
         let trendingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("memeController") as! MemeViewController
-        trendingVC.contentType = "trending"
+        trendingVC.contentType = GAG.Constants.TRENDING
         var frame1 = trendingVC.view.frame
         frame1.origin.x = frame
         trendingVC.view.frame = frame1
@@ -52,7 +55,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         trendingVC.didMoveToParentViewController(self)
         
         let freshVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("memeController") as! MemeViewController
-        freshVC.contentType = "fresh"
+        freshVC.contentType = GAG.Constants.FRESH
         var frame2 = trendingVC.view.frame
         frame2.origin.x = frame * 2
         freshVC.view.frame = frame2
@@ -63,8 +66,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         self.scrollView.contentSize = CGSizeMake(frame * 3, self.view.frame.size.height)
         
+        // Populate newly create view controllers with initial data
         populateInitialData(hotVC, trendingVC: trendingVC, freshVC: freshVC)
 
+        scrollView.delegate = self
         
     }
     
@@ -76,12 +81,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
     
     @IBAction func didTapButton(sender: UIButton) {
+        // once tapped the underline line beneath the buttons moves properly
         updateConstraintsForActiveLineView(activeLine, underButton:sender)
         
         let pageWidth = CGRectGetWidth(self.scrollView.frame)
         let frameHeight = CGRectGetHeight(self.scrollView.frame)
-
         
+        // Clicking the appropriate button brings to correct page
         switch sender.currentTitle! {
         case "HOT":
             self.scrollView.scrollRectToVisible(CGRectMake(0, 0, pageWidth, frameHeight), animated: true)
@@ -105,7 +111,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     
     func populateInitialData(hotVC: MemeViewController, trendingVC: MemeViewController, freshVC: MemeViewController) {
-        GAG.sharedInstance().taskForResource("hot", last: "") { JSONResult, error in
+        
+        // 3 calls to retrieve data for each section
+        GAG.sharedInstance().taskForResource(GAG.Constants.HOT, last: "") { JSONResult, error in
             if let error = error {
                 print(error)
             } else {
@@ -115,6 +123,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         let testMeme = Meme(data: meme)
                         self.hotMemes.append(testMeme)
                     }
+                    // resourecs are set and passed to each VC
                     hotVC.resources = self.hotMemes
                     dispatch_async(dispatch_get_main_queue()) {
                         hotVC.tableView.reloadData()
@@ -127,15 +136,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     print(error)
                 }
                 
-                if let paging = JSONResult.valueForKey("paging") as? [String : AnyObject] {
-                    let hotPaging = paging["next"] as! String
+                // paging to obtain new data form last point
+                if let paging = JSONResult.valueForKey(GAG.Constants.PAGING) as? [String : AnyObject] {
+                    let hotPaging = paging[GAG.Constants.NEXT] as! String
                     hotVC.nextPaging = hotPaging
                 }
                 
             }
         }
         
-        GAG.sharedInstance().taskForResource("trending", last: "") { JSONResult, error in
+        GAG.sharedInstance().taskForResource(GAG.Constants.TRENDING, last: "") { JSONResult, error in
             if let error = error {
                 print(error)
             } else {
@@ -156,15 +166,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     print(error)
                 }
                 
-                if let paging = JSONResult.valueForKey("paging") as? [String : AnyObject] {
-                    let trendingPaging = paging["next"] as! String
+                if let paging = JSONResult.valueForKey(GAG.Constants.PAGING) as? [String : AnyObject] {
+                    let trendingPaging = paging[GAG.Constants.NEXT] as! String
                     hotVC.nextPaging = trendingPaging
                 }
                 
             }
         }
         
-        GAG.sharedInstance().taskForResource("fresh", last: "") { JSONResult, error in
+        GAG.sharedInstance().taskForResource(GAG.Constants.FRESH, last: "") { JSONResult, error in
             if let error = error {
                 print(error)
             } else {
@@ -185,13 +195,14 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     print(error)
                 }
                 
-                if let paging = JSONResult.valueForKey("paging") as? [String : AnyObject] {
-                    let freshPaging = paging["next"] as! String
+                if let paging = JSONResult.valueForKey(GAG.Constants.PAGING) as? [String : AnyObject] {
+                    let freshPaging = paging[GAG.Constants.NEXT] as! String
                     freshVC.nextPaging = freshPaging
                 }
                 
             }
         }
+        
         
     }
     
@@ -205,19 +216,19 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MemeCollectionCell", forIndexPath: indexPath) as! MemeCollectionViewCell
         let res = self.hotMemes[indexPath.row]
         
+        // set cell UI
         cell.memeCaption.text = res.caption
+        
+        // Set image from cache, else make call
         let imageURL = NSURL(string: res.photoURL)
         cell.imageUrl = imageURL
         if let image = imageURL?.cachedImage {
             //            print("got cached goodies for you")
             cell.memeImage.image = image
         } else {
-            print("fetching image for you")
             imageURL?.fetchImage { image in
                 if cell.imageUrl == imageURL {
-                    print("image ready")
                     dispatch_async(dispatch_get_main_queue()) {
-                        print("setting image in main")
                         cell.memeImage.image = image
                         collectionView.reloadData()
                     }
@@ -231,6 +242,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        // Collection view settings
         let itemsPerRow:CGFloat = 3
         let hardCodedPadding:CGFloat = 5
         let itemWidth = (collectionView.bounds.width / itemsPerRow) - hardCodedPadding
@@ -238,6 +251,20 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return CGSize(width: itemWidth, height: itemHeight)
     }
     
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        // moves underline view after scroll
+        switch self.scrollView.contentOffset.x {
+        case 0:
+            updateConstraintsForActiveLineView(activeLine, underButton: hotButton)
+        case frame:
+            updateConstraintsForActiveLineView(activeLine, underButton: trendingButton)
+        case frame * 2:
+            updateConstraintsForActiveLineView(activeLine, underButton: freshButton)
+        default:
+            print("default")
+        }
+    }
+
 
 }
 

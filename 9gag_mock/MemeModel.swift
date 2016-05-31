@@ -29,6 +29,7 @@ class Meme {
     var votes: Int
     
     init(id: String, caption: String, photoURL: String, authorId: String, comments: Int, votes: Int) {
+        // manual init method
         self.id = id
         self.caption = caption
         self.photoURL = photoURL
@@ -38,6 +39,7 @@ class Meme {
     }
     
     init(data: [String : AnyObject]) {
+        // init from dictionary converted from JSON data
         self.id = data[Keys.id] as! String
         self.caption = data[Keys.caption] as! String
         let images = data[Keys.images] as! [String:AnyObject]

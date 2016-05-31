@@ -11,6 +11,8 @@ import UIKit
 
 class MemeTableCell: UITableViewCell {
     
+    // Custom meme tableview cell
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var memeImage: UIImageView!
     var imageUrl: NSURL!
